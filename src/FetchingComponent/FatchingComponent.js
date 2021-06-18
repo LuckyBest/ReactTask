@@ -2,8 +2,10 @@ import classes from "./FetchingComponent.module.css";
 
 const FetchingComponent = () => {
   return (
-    <div>
-      <h1>Fetching more list data...</h1>
+    <div className={classes.lds_facebook}>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   );
 };

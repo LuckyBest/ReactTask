@@ -16,14 +16,17 @@ const List = () => {
   //Булева перевірка загрузки данних
   const [isFetching, setIsFetching] = useState(false);
   //Перехід по сторінках
-  const [page, setPage] = useState(1);
+  let page = 1;
   //Підугрузка потрібної кількості юзерів
+  const usersAmount = 50;
 
+  //додаю івент на глобальну змінну
   useEffect(() => {
     fetchData();
     window.addEventListener("scroll", handleScroll);
   }, []);
 
+  //відслідковую скрол
   const handleScroll = () => {
     if (
       Math.floor(window.innerHeight + document.documentElement.scrollTop) !==
@@ -34,15 +37,18 @@ const List = () => {
     setIsFetching(true);
   };
 
+  //отримую дані з API
   const fetchData = async () => {
     setTimeout(async () => {
-      axios
-        .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}`)
+      await axios
+        .get(
+          `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${usersAmount}`
+        )
         .then((response) => {
-          setPage(page + 1);
-
+          console.log(usersAmount);
+          page = +1;
           setListItems(() => {
-            console.log(response);
+            console.log(response.data.items);
             return [...listItems, ...response.data.items];
           });
         });
@@ -59,33 +65,22 @@ const List = () => {
     setIsFetching(false);
   };
   let counter = 0;
-  let activeUser = false;
-  let userArray = [];
+
   return (
     <>
       <Header />
       <main className="main-content">
         <div className="main-content__container">
           {listItems.map((listItem) => {
-            userArray.push(listItem);
             counter += 1;
             return (
-              <div
-                key={listItem.id}
-                onClick={() => {
-                  activeUser = !activeUser;
-                  console.log(activeUser);
-                  return activeUser;
-                }}
-              >
+              <div key={listItem.id}>
                 <Suspense fallback={<Loader />}>
                   <UserComponent
-                    activeUser={activeUser}
                     name={listItem.name}
                     photo={imageFile}
                     id={listItem.id}
                     counter={counter}
-                    userArray={userArray}
                   />
                 </Suspense>
               </div>
