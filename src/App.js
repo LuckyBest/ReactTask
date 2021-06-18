@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect, Suspense } from "react";
 import Header from "./Header/Header";
 import "./App.css";
-import FetchingComponent from "./FetchingComponent/FatchingComponent";
+import FetchingComponent from "./FetchingComponent/FetchingComponent";
 import Loader from "./Loader/Loader";
 
 const UserComponent = React.lazy(() => import("./UserComponent/UserComponent"));

@@ -19,12 +19,18 @@ const UserComponent = ({ name, photo, id, counter }) => {
         <div className={classes.userInfo}>
           <div
             className={
-              user.selected ? classes.userInfoNameActivated : classes.userInfoName
+              user.selected
+                ? classes.userInfoNameActivated
+                : classes.userInfoName
             }
           >
             <p>{name}</p>
           </div>
-          <div className={ user.selected ? classes.userInfoIdActivated: classes.userInfoId}>
+          <div
+            className={
+              user.selected ? classes.userInfoIdActivated : classes.userInfoId
+            }
+          >
             <p>id: {id}</p>
           </div>
         </div>
